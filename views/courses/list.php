@@ -1,8 +1,7 @@
- <?php require_once './views/courses/header.php'; ?>
-
 <table>
     <thead>
         <tr>
+            <th>ID</th>
             <th>Tên sản phẩm</th>
             <th>Mô tả</th>
             <th>Giá</th>
@@ -15,14 +14,14 @@
     <tbody>
         <?php foreach ($data as $value): ?>
             <tr>
+                <td><?= $value['id'] ?></td>
                 <td><?= $value['name'] ?></td>
                 <td><?= $value['description'] ?></td>
                 <td><?= number_format($value['price']) ?></td>
                 <td><?= $value['category_id'] ?></td>
                 <td><?= $value['brand'] ?></td>
-                <td>                    
-                    <img src="<?= BASE_UPLOADS . '/' . $value['image'] ?>" alt="<?= $value['image'] ?>" width="100">
-
+                <td>
+                    <img src="<?= BASE_URL . $value['image'] ?>" alt="<?= $value['name'] ?>" width="100">
                 </td>
                 <td><?= $value['created_at'] ?></td>
 
@@ -30,4 +29,3 @@
             <?php endforeach; ?>
     </tbody>
 </table>
- <?php require_once './views/courses/footer.php'; ?>

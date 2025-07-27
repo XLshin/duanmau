@@ -12,3 +12,4 @@ define('DB_PASSWORD', '');
 define('DB_NAME'    , 'duanmau');  // Tên database
 
 define('PATH_ROOT'    , __DIR__ . '/../');
+define('BASE_UPLOADS',   BASE_URL . 'uploads/imgproduct');

@@ -11,8 +11,8 @@ class ProductController
 
     public function Home()
     {
-        $title = "Đây là trang chủ nhé hahaa";
-        $thoiTiet = "Hôm nay trời có vẻ là mưa";
+        $product = new Product();
+        $data = $product ->getAllProduct();
         require_once './views/trangchu.php';
     }
 }
