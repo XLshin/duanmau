@@ -27,25 +27,27 @@ class Product
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function insert($image)
-    {
-        $sql = "
-            INSERT INTO `products`(`id`, `name`, `description`, `price`, `category_id`, `brand`, `image`, `created_at`) VALUES
-             (:id, :name, :description, :price, :category_id, :brand, :image, :created_at)
-        ";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':id', $_POST['id']);
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':description', $_POST['description']);
-        $stmt->bindParam(':price', $_POST['price']);
-        $stmt->bindParam(':category_id', $_POST['category_id']);
-        $stmt->bindParam(':brand', $_POST['brand']);
-        $stmt->bindParam(':image', $_POST['image']);
-        $stmt->bindParam(':created_at', $_POST['created_at']);
-        $stmt->execute();
-    }
+public function insertProduct($image)
+{
+    $sql = "
+        INSERT INTO `products`(`name`, `description`, `price`, `category_id`, `brand`, `image`, `created_at`) 
+        VALUES (:name, :description, :price, :category_id, :brand, :image, :created_at)
+    ";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':name', $_POST['name']);
+    $stmt->bindParam(':description', $_POST['description']);
+    $stmt->bindParam(':price', $_POST['price']);
+    $stmt->bindParam(':category_id', $_POST['category_id']);
+    $stmt->bindParam(':brand', $_POST['brand']);
+    $stmt->bindParam(':image', $image); // ảnh truyền vào từ controller
+    $created_at = date('Y-m-d H:i:s');
+    $stmt->bindParam(':created_at', $created_at);
+    $stmt->execute();
+}
+
+
     
-    public function update($image)
+    public function updateProduct($image)
     {
         $sql = "
             UPDATE `products` SET `id`=:id,`name`=:name,`description`=:description,`price`=:price,`category_id`=:category_id,
@@ -63,7 +65,7 @@ class Product
         $stmt->bindParam(':created_at', $_POST['created_at']);
         $stmt->execute();
     }
-    public function delete()
+    public function deleteProduct()
     {
         $sql ="DELETE FROM `products` WHERE id=:id";
         $stmt = $this->conn->prepare($sql);

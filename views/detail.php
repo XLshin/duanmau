@@ -1,5 +1,4 @@
 <?php require_once './views/courses/header.php'; ?>
-<a href="<?= BASE_URL ?>?act=insert">thêm mới</a>
 <table>
     <style>
         body {
@@ -74,28 +73,18 @@ img {
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($data as $value): ?>
             <tr>
-                <td><?= $value['name'] ?></td>
-                <td><?= $value['description'] ?></td>
-                <td><?= number_format($value['price']) ?></td>
-                <td><?= $value['categoryName'] ?></td>
-                <td><?= $value['brand'] ?></td>
+                <td><?= $data['name'] ?></td>
+                <td><?= $data['description'] ?></td>
+                <td><?= number_format($data['price']) ?></td>
+                <td><?= $data['categoryName'] ?></td>
+                <td><?= $data['brand'] ?></td>
                 <td>                    
-                    <img src="<?= BASE_UPLOADS . '/' . $value['image'] ?>"  width="100">
+                    <img src="<?= BASE_UPLOADS . '/' . $data['image'] ?>"  width="100">
                 </td>
-                <td><?= $value['created_at'] ?></td>
-                <td>
-                    <a href="<?= BASE_URL ?>?act=detail&id=<?= $value['id'] ?>">
-                        Chi tiết
-                    </a>
-                </td>
-                <td>
-                    <a href="<?= BASE_URL ?>?act=deleteProduct&id=<?= $value['id']?>"
-                    onclick="return confirm('Mày xóa thật không')">Xóa</a>
-                </td>
+                <td><?= $data['created_at'] ?></td>
+                
             </tr>
-            <?php endforeach; ?>
     </tbody>
 </table>
  <?php require_once './views/courses/footer.php'; ?>

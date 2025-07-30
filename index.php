@@ -11,6 +11,8 @@ require_once './controllers/ProductController.php';
 // Require toàn bộ file Models
 require_once './models/ProductModel.php';
 require_once './models/Product.php';
+require_once './models/Category.php';
+
 
 
 // Route
@@ -22,5 +24,8 @@ $act = $_GET['act'] ?? '/';
 match ($act) {
     // Trang chủ
     '/'=>(new ProductController())->Home(),
-
+    'detail'         => (new ProductController)->detailProduct(),
+    'insert'         => (new ProductController)->insertProduct(),
+    'storeProduct'         => (new ProductController)->storeProduct(),
+    'deleteProduct'         => (new ProductController)->deleteProduct(),
 };
