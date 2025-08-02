@@ -2,64 +2,69 @@
 <a href="<?= BASE_URL ?>?act=insert">thêm mới</a>
 <table>
     <style>
-        body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f2f2f2;
-    margin: 0;
-    padding: 0;
-}
-
 table {
-    width: 95%;
-    margin: 40px auto;
+    width: 100%;
     border-collapse: collapse;
+    margin: 30px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-th, td {
-    padding: 15px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-    color: #333;
-}
-
-th {
-    background-color: #444;
+thead {
+    background-color: #111;
     color: #fff;
     text-transform: uppercase;
     font-size: 14px;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
-tr:hover {
-    background-color: #f0f0f0;
+th, td {
+    padding: 15px 20px;
+    text-align: left;
+}
+
+tbody tr {
+    border-bottom: 1px solid #eee;
+    transition: background 0.3s ease;
+}
+
+tbody tr:hover {
+    background-color: #f9f9f9;
 }
 
 img {
-    width: 80px;
-    height: auto;
     border-radius: 6px;
-    border: 1px solid #ccc;
-    object-fit: cover;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease;
 }
 
-/* Responsive table for small screens */
-@media (max-width: 768px) {
-    table {
-        font-size: 14px;
-    }
-
-    th, td {
-        padding: 10px;
-    }
-
-    img {
-        width: 60px;
-    }
+img:hover {
+    transform: scale(1.05);
 }
+
+a {
+    color: #0077cc;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    color: #005fa3;
+    text-decoration: underline;
+}
+
+td:last-child a {
+    color: red;
+    font-weight: bold;
+}
+
+td:last-child a:hover {
+    text-decoration: underline;
+}
+
 
     </style>
     <thead>
@@ -88,6 +93,11 @@ img {
                 <td>
                     <a href="<?= BASE_URL ?>?act=detail&id=<?= $value['id'] ?>">
                         Chi tiết
+                    </a>
+                </td>
+                <td>
+                    <a href="<?= BASE_URL ?>?act=update&id=<?= $value['id'] ?>">
+                        chỉnh sửa
                     </a>
                 </td>
                 <td>

@@ -22,18 +22,25 @@ function connectDB() {
     }
 }
 
-function uploadFile($file, $folderSave){
+function uploadFile($file, $folderSave) {
     $file_upload = $file;
-    $pathStorage = $folderSave . rand(10000, 99999) . $file_upload['name'];
+    $fileName = rand(10000, 99999) . '_' . $file_upload['name'];
 
+    $folderPath = PATH_ROOT . 'uploads/' . $folderSave . '/';
+    if (!file_exists($folderPath)) {
+        mkdir($folderPath, 0755, true); // tạo thư mục nếu chưa có
+    }
+
+    $absolutePath = $folderPath . $fileName;
     $tmp_file = $file_upload['tmp_name'];
-    $pathSave = PATH_ROOT . $pathStorage; // Đường dãn tuyệt đối của file
 
-    if (move_uploaded_file($tmp_file, $pathSave)) {
-        return $pathStorage;
+    if (move_uploaded_file($tmp_file, $absolutePath)) {
+        return $fileName; // ✅ chỉ tên file
     }
     return null;
 }
+
+
 
 function deleteFile($file){
     $pathDelete = PATH_ROOT . $file;

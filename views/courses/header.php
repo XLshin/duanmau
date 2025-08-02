@@ -59,9 +59,9 @@
     <nav>
         <ul>
             <li><a href="<?= BASE_URL ?>">Trang Chủ</a></li>
-            <li><a href="#">Sản Phẩm</a></li>
             <li><a href="#">Giới Thiệu</a></li>
             <li><a href="#">Liên Hệ</a></li>
+            <li><a href="#">Đăng Nhập</a></li>
         </ul>
     </nav>
 </header>

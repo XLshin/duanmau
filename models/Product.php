@@ -16,7 +16,7 @@ class Product
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getOne()
+    public function getOneProduct()
     {
         $sql = "SELECT products.*,categories.name AS categoryName FROM products LEFT JOIN categories ON products.category_id = categories.id
         WHERE products.id = :id
@@ -27,44 +27,43 @@ class Product
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-public function insertProduct($image)
-{
-    $sql = "
-        INSERT INTO `products`(`name`, `description`, `price`, `category_id`, `brand`, `image`, `created_at`) 
-        VALUES (:name, :description, :price, :category_id, :brand, :image, :created_at)
-    ";
-    $stmt = $this->conn->prepare($sql);
-    $stmt->bindParam(':name', $_POST['name']);
-    $stmt->bindParam(':description', $_POST['description']);
-    $stmt->bindParam(':price', $_POST['price']);
-    $stmt->bindParam(':category_id', $_POST['category_id']);
-    $stmt->bindParam(':brand', $_POST['brand']);
-    $stmt->bindParam(':image', $image); // ảnh truyền vào từ controller
-    $created_at = date('Y-m-d H:i:s');
-    $stmt->bindParam(':created_at', $created_at);
-    $stmt->execute();
-}
-
-
-    
-    public function updateProduct($image)
+    public function insertProduct($image)
     {
         $sql = "
-            UPDATE `products` SET `id`=:id,`name`=:name,`description`=:description,`price`=:price,`category_id`=:category_id,
-            `brand`=:brand,`image`=:image,`created_at`=:created_at
-            WHERE id = :id
+            INSERT INTO `products`(`name`, `description`, `price`, `category_id`, `brand`, `image`, `created_at`) 
+            VALUES (:name, :description, :price, :category_id, :brand, :image, :created_at)
         ";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':id', $_POST['id']);
-        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':name', $_POST['name']);
         $stmt->bindParam(':description', $_POST['description']);
         $stmt->bindParam(':price', $_POST['price']);
         $stmt->bindParam(':category_id', $_POST['category_id']);
         $stmt->bindParam(':brand', $_POST['brand']);
-        $stmt->bindParam(':image', $_POST['image']);
-        $stmt->bindParam(':created_at', $_POST['created_at']);
+        $stmt->bindParam(':image', $image); // ảnh truyền vào từ controller
+        $created_at = date('Y-m-d H:i:s');
+        $stmt->bindParam(':created_at', $created_at);
         $stmt->execute();
     }
+
+
+    
+    public function updateProduct($id, $name, $description, $price, $category_id, $brand, $image)
+    {
+        $sql = "UPDATE products SET name = :name, description = :description, price = :price,
+                category_id = :category_id, brand = :brand, image = :image WHERE id = :id";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([
+            ':id' => $id,
+            ':name' => $name,
+            ':description' => $description,
+            ':price' => $price,
+            ':category_id' => $category_id,
+            ':brand' => $brand,
+            ':image' => $image
+        ]);
+    }
+
     public function deleteProduct()
     {
         $sql ="DELETE FROM `products` WHERE id=:id";

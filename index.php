@@ -26,6 +26,8 @@ match ($act) {
     '/'=>(new ProductController())->Home(),
     'detail'         => (new ProductController)->detailProduct(),
     'insert'         => (new ProductController)->insertProduct(),
-    'storeProduct'         => (new ProductController)->storeProduct(),
-    'deleteProduct'         => (new ProductController)->deleteProduct(),
+    'storeProduct'   => (new ProductController)->storeProduct(),
+    'deleteProduct'  => (new ProductController)->deleteProduct(),
+    'update'         => (new ProductController)->updateProduct(),
+    'editProduct'    => (new ProductController)->editProduct(),
 };

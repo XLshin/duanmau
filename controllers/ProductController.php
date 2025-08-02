@@ -22,7 +22,7 @@ class ProductController
             exit();
         }
         $Product = new Product();
-        $data = $Product->getOne();
+        $data = $Product->getOneProduct();
         require_once './views/detail.php';
     }
     public function insertProduct()
@@ -41,15 +41,13 @@ class ProductController
 
         $image = null;
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $image = uploadFile($_FILES['image'], "product");
+            $image = uploadFile($_FILES['image'], "imgproduct");
         }
 
-        if (!$name || !$price || !$category_id) {
-            die("Thiếu dữ liệu bắt buộc: name, price, category_id");
-        }
-
+        // Lưu chính xác đường dẫn này vào DB
         $product = new Product();
-        $product->insertProduct($name, $description, $price, $category_id, $brand, $image);
+        $product->insertProduct($image);
+
 
         header("Location: " . BASE_URL);
         exit();
@@ -61,4 +59,51 @@ class ProductController
         header("Location: " . BASE_URL);
 
     }
+    public function updateProduct()
+    {
+        if (!isset($_GET['id'])) {
+            header("Location: " . BASE_URL);
+            exit();
+        }
+
+        $product = new Product();
+        $data_product = $product->getOneProduct();
+
+        $category = new Category();
+        $data_category = $category->getAllProduct();
+
+        require_once './views/update.php'; // giống như insert dùng views/insert.php
+    }
+
+    public function editProduct()
+    {
+        if (!isset($_GET['id'])) {
+            header("Location: " . BASE_URL);
+            exit();
+        }
+
+        $id = $_GET['id'];
+
+        $name = $_POST['name'] ?? null;
+        $description = $_POST['description'] ?? null;
+        $price = $_POST['price'] ?? null;
+        $category_id = $_POST['category_id'] ?? null;
+        $brand = $_POST['brand'] ?? null;
+
+        $product = new Product();
+        $oldData = $product->getOneProduct();
+
+        $image = $oldData['image'] ?? null;
+
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $image = uploadFile($_FILES['image'], "imgproduct");
+        }
+
+        $product->updateProduct($id, $name, $description, $price, $category_id, $brand, $image);
+
+        header("Location: " . BASE_URL);
+        exit();
+    }
+
+
 }
