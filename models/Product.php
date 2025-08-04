@@ -18,14 +18,25 @@ class Product
 
     public function getOneProduct()
     {
-        $sql = "SELECT products.*,categories.name AS categoryName FROM products LEFT JOIN categories ON products.category_id = categories.id
-        WHERE products.id = :id
-        ";
+        $sql = "SELECT p.*, c.name AS categoryName 
+                FROM products p
+                LEFT JOIN categories c ON p.category_id = c.id
+                WHERE p.id = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':id', $_GET['id']);
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $product = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Lấy danh sách size + tồn kho nếu có
+        $sql_size = "SELECT size, quantity FROM inventory WHERE product_id = :id ORDER BY size ASC";
+        $stmt_size = $this->conn->prepare($sql_size);
+        $stmt_size->bindParam(':id', $_GET['id']);
+        $stmt_size->execute();
+        $product['sizes'] = $stmt_size->fetchAll(PDO::FETCH_ASSOC);
+
+        return $product;
     }
+
 
     public function insertProduct($image)
     {
