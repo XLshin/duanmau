@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once './models/User.php';
 
 class UserController
@@ -32,12 +34,13 @@ class UserController
             exit;
         }
 
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        // Lưu mật khẩu thẳng (không băm)
+        $plainPassword = $password;
 
         $this->userModel->create([
             'name' => $name,
             'email' => $email,
-            'password' => $hashedPassword,
+            'password' => $plainPassword,
             'phone' => $phone,
             'address' => $address,
             'role' => 'customer',
@@ -55,20 +58,20 @@ class UserController
     }
 
     // Xử lý đăng nhập
-    public function handleLogin()
+   public function handleLogin()
     {
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
 
         $user = $this->userModel->findByEmail($email);
 
-        if ($user && password_verify($password, $user['password'])) {
+        if ($user && $password === $user['password']) {
             // Lưu thông tin cần thiết vào session
             $_SESSION['user'] = [
                 'id' => $user['id'],
                 'name' => $user['name'],
                 'email' => $user['email'],
-                'role' => $user['role'], // thêm dòng này
+                'role' => $user['role'],
             ];
 
             header("Location: " . BASE_URL);
@@ -79,7 +82,6 @@ class UserController
             exit;
         }
     }
-
     // Đăng xuất
     public function logout()
     {
@@ -121,4 +123,35 @@ class UserController
         header("Location: " . BASE_URL . "?act=admin-users");
         exit();
     }
+    // Xử lý cập nhật thông tin tài khoản
+    public function updateProfile()
+    {
+        if (!isset($_SESSION['user'])) {
+            header("Location: " . BASE_URL . "?act=login");
+            exit;
+        }
+
+        $id = $_SESSION['user']['id'];
+        $name = $_POST['name'] ?? '';
+        $phone = $_POST['phone'] ?? '';
+        $address = $_POST['address'] ?? '';
+
+        $result = $this->userModel->updateProfile($id, [
+            'name' => $name,
+            'phone' => $phone,
+            'address' => $address
+        ]);
+
+
+        if ($result) {
+            $_SESSION['success'] = "Cập nhật thông tin thành công!";
+            $_SESSION['user']['name'] = $name; // Cập nhật lại session nếu tên thay đổi
+        } else {
+            $_SESSION['error'] = "Có lỗi xảy ra khi cập nhật!";
+        }
+
+        header("Location: " . BASE_URL . "?act=profile");
+        exit;
+    }
+
 }

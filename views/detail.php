@@ -186,15 +186,29 @@
         </div>
         <?php endif; ?>
 
+    <form action="<?= BASE_URL ?>?act=add-cart" method="post" id="addCartForm">
+        <input type="hidden" name="product_id" value="<?= $data['id'] ?>">
+        <input type="hidden" name="size" id="selected-size" value="">
+        <input type="hidden" name="quantity" id="selected-qty" value="1">
+
         <div class="action-buttons">
             <div class="qty-control">
                 <button type="button" id="btn-decrease">−</button>
                 <input type="number" id="quantity" value="1" min="1" max="99" />
                 <button type="button" id="btn-increase">+</button>
             </div>
-            <button class="btn-cart" id="btn-add-cart" disabled>Thêm vào giỏ</button>
-            <button class="btn-buy" id="btn-buy-now" disabled>Mua ngay</button>
+            <button type="submit" class="btn-cart" id="btn-add-cart" disabled>Thêm vào giỏ</button>
+            <button type="button" class="btn-buy" id="btn-buy-now" disabled>Mua ngay</button>
+            
         </div>
+    </form>
+<?php
+// Giả sử biến $data chứa info sản phẩm, $comments chứa bình luận, session đã start
+$product = $data;
+?>
+
+<?php require_once './views/comments/form.php'; ?>
+
     </div>
 </div>
 
@@ -246,15 +260,20 @@
     });
 
     // Xử lý khi bấm Thêm vào giỏ hoặc Mua ngay
-    document.getElementById('btn-add-cart').addEventListener('click', () => {
+    document.getElementById('btn-add-cart').addEventListener('click', (e) => {
+        e.preventDefault();
         if (!selectedSize) {
             alert('Vui lòng chọn size!');
             return;
         }
+
         const quantity = parseInt(qtyInput.value);
-        // TODO: Gửi dữ liệu lên server hoặc xử lý thêm giỏ hàng
-        alert(`Đã thêm sản phẩm "${selectedSize}" với số lượng ${quantity} vào giỏ hàng.`);
+        document.getElementById('selected-size').value = selectedSize;
+        document.getElementById('selected-qty').value = quantity;
+
+        document.getElementById('addCartForm').submit();
     });
+
 
     document.getElementById('btn-buy-now').addEventListener('click', () => {
         if (!selectedSize) {

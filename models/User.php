@@ -43,6 +43,15 @@ class User
         return $stmt->execute();
     }
 
-    
+    public function updateProfile($id, $data)
+    {
+        $stmt = $this->conn->prepare("UPDATE users SET name = :name, phone = :phone, address = :address WHERE id = :id");
+        return $stmt->execute([
+            ':name' => $data['name'],
+            ':phone' => $data['phone'],
+            ':address' => $data['address'],
+            ':id' => $id
+        ]);
+    }
 
 }

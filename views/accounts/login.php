@@ -87,6 +87,19 @@
     <?php if (isset($_SESSION['error'])): ?>
         <div class="alert"><?= $_SESSION['error']; unset($_SESSION['error']); ?></div>
     <?php endif; ?>
+<?php if (session_status() === PHP_SESSION_NONE) session_start(); ?>
+
+<?php if (isset($_SESSION['success'])): ?>
+    <div class="alert" style="background-color:#d4edda; color:#155724; padding:10px; margin-bottom:10px; border-radius:4px;">
+        <?= $_SESSION['success']; unset($_SESSION['success']); ?>
+    </div>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['error'])): ?>
+    <div class="alert" style="background-color:#f8d7da; color:#721c24; padding:10px; margin-bottom:10px; border-radius:4px;">
+        <?= $_SESSION['error']; unset($_SESSION['error']); ?>
+    </div>
+<?php endif; ?>
 
     <form action="<?= BASE_URL ?>?act=handle-login" method="post">
         <div class="form-row">

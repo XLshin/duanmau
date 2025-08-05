@@ -16,21 +16,21 @@ class Product
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getOneProduct()
+    public function getOneProduct($id)
     {
         $sql = "SELECT p.*, c.name AS categoryName 
                 FROM products p
                 LEFT JOIN categories c ON p.category_id = c.id
                 WHERE p.id = :id";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':id', $_GET['id']);
+        $stmt->bindParam(':id', $id);
         $stmt->execute();
         $product = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Lấy danh sách size + tồn kho nếu có
         $sql_size = "SELECT size, quantity FROM inventory WHERE product_id = :id ORDER BY size ASC";
         $stmt_size = $this->conn->prepare($sql_size);
-        $stmt_size->bindParam(':id', $_GET['id']);
+        $stmt_size->bindParam(':id', $id);
         $stmt_size->execute();
         $product['sizes'] = $stmt_size->fetchAll(PDO::FETCH_ASSOC);
 
@@ -75,11 +75,34 @@ class Product
         ]);
     }
 
-    public function deleteProduct()
+        public function deleteProduct($id)
+        {
+            $sql ="DELETE FROM `products` WHERE id=:id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+        }
+
+    public function searchByKeyword($keyword)
     {
-        $sql ="DELETE FROM `products` WHERE id=:id";
+        $sql = "SELECT p.*, c.name AS categoryName
+        FROM products p
+        LEFT JOIN categories c ON p.category_id = c.id
+        WHERE p.name LIKE :keyword
+            OR p.brand LIKE :keyword
+            OR c.name LIKE :keyword";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':id', $_GET['id']);
-        $stmt->execute();
+        $stmt->execute([
+            'keyword' => '%' . $keyword . '%'
+        ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getProductsByCategory($category_id)
+    {
+        $sql = "SELECT * FROM products WHERE category_id = :category_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['category_id' => $category_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }

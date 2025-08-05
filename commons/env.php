@@ -13,5 +13,3 @@ define('DB_NAME'    , 'duanmau');  // Tên database
 
 define('PATH_ROOT'    , __DIR__ . '/../');
 define('BASE_UPLOADS',   BASE_URL . 'uploads/imgproduct');
-define('PATH_UPLOADS', PATH_ROOT . 'uploads/imgproduct/');
-define('PATH_VIEW_MAIN', './views/main.php');

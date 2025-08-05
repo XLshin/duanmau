@@ -1,6 +1,5 @@
 <?php require_once './views/layouts/header.php'; ?>
 
-
 <style>
 .container {
     max-width: 1200px;
@@ -75,25 +74,29 @@
 </style>
 
 <div class="container">
-    <h2 style="text-align:center; margin-bottom: 30px;">Sản phẩm mới nhất</h2>
-    <div class="product-grid">
-        <?php foreach ($data as $value): ?>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="<?= BASE_UPLOADS . '/' . $value['image'] ?>" alt="<?= $value['name'] ?>">
-                </div>
-                <div class="product-info">
-                    <h3><?= htmlspecialchars($value['name']) ?></h3>
-                    <p><?= htmlspecialchars($value['brand']) ?> • <?= htmlspecialchars($value['categoryName']) ?></p>
-                    <div class="product-price"><?= number_format($value['price']) ?>₫</div>
-                    <div class="product-actions">
-                        <a href="<?= BASE_URL ?>?act=detail&id=<?= $value['id'] ?>">Xem chi tiết</a>
-                        <!-- <a href="#">Thêm vào giỏ</a> -->
+    <h2 style="text-align:center; margin-bottom: 30px;">Kết quả tìm kiếm</h2>
+
+    <?php if (empty($results)): ?>
+        <p style="text-align: center;">Không tìm thấy sản phẩm nào phù hợp.</p>
+    <?php else: ?>
+        <div class="product-grid">
+            <?php foreach ($results as $value): ?>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="<?= BASE_UPLOADS . '/' . $value['image'] ?>" alt="<?= $value['name'] ?>">
+                    </div>
+                    <div class="product-info">
+                        <h3><?= htmlspecialchars($value['name']) ?></h3>
+                        <p><?= htmlspecialchars($value['brand']) ?> • <?= htmlspecialchars($value['categoryName'] ?? '') ?></p>
+                        <div class="product-price"><?= number_format($value['price']) ?>₫</div>
+                        <div class="product-actions">
+                            <a href="<?= BASE_URL ?>?act=detail&id=<?= $value['id'] ?>">Xem chi tiết</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
 </div>
 
 <?php require_once './views/layouts/footer.php'; ?>
