@@ -53,5 +53,10 @@ class User
             ':id' => $id
         ]);
     }
-
+    public function countUsers()
+    {
+        $sql = "SELECT COUNT(*) as total FROM users";
+        $stmt = $this->conn->query($sql);
+        return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+    }
 }

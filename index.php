@@ -33,11 +33,6 @@ match ($act) {
     // Product
     '/'               => (new ProductController())->Home(),
     'detail'          => (new ProductController)->detailProduct(),
-    'insert'          => (new ProductController)->insertProduct(),
-    'storeProduct'    => (new ProductController)->storeProduct(),
-    'deleteProduct'   => (new ProductController)->deleteProduct(),
-    'update'          => (new ProductController)->updateProduct(),
-    'editProduct'     => (new ProductController)->editProduct(),
     'search'          => (new ProductController)->searchProduct(),
     'category'        => (new ProductController)->viewByCategory(),
 
@@ -49,8 +44,6 @@ match ($act) {
     'logout'          => (new UserController)->logout(),
     'profile'         => (new UserController)->profile(),
     'update-profile'  => (new UserController)->updateProfile(),
-    'admin-users'     => (new UserController)->listCustomer(),
-    'admin-user-delete' => (new UserController)->deleteCustomer(),
     'add-comment' => (new ProductController)->addComment(),
     'delete-comment' => (new ProductController)->deleteComment(),
 
@@ -59,6 +52,15 @@ match ($act) {
     'add-cart'     => (new CartController)->add(),
     'remove-cart'     => (new CartController)->remove(),
     'orders' => print("không có đâu"),
+
+    //admin
+    'insertProduct'          => (new ProductController)->insertProduct(),
+    'storeProduct'    => (new ProductController)->storeProduct(),
+    'deleteProduct'   => (new ProductController)->deleteProduct(),
+    'updateProduct'          => (new ProductController)->updateProduct(),
+    'admin-users'     => (new UserController)->listCustomer(),
+    'admin-user-delete' => (new UserController)->deleteCustomer(),
+    'admin-products' => (new ProductController)->listProduct(),
 
 
 

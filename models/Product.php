@@ -104,5 +104,11 @@ class Product
         $stmt->execute(['category_id' => $category_id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function countProducts()
+    {
+        $sql = "SELECT COUNT(*) as total FROM products";
+        $stmt = $this->conn->query($sql);
+        return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+    }
 
 }

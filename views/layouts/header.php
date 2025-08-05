@@ -282,7 +282,7 @@
             <div class="nav-center">
                 <ul>
                     <li><a href="<?= BASE_URL ?>">Trang chủ</a></li>
-                <li class="dropdown">
+                    <li class="dropdown">
                     <a href="#" class="dropbtn">Danh mục</a>
                     <ul class="dropdown-content">
                     <li><a href="<?= BASE_URL ?>?act=category&id=1">Giày sneaker</a></li>
@@ -290,9 +290,11 @@
                     <li><a href="<?= BASE_URL ?>?act=category&id=3">Giày tây</a></li>
                     <li><a href="<?= BASE_URL ?>?act=category&id=4">Sandal</a></li>
                     </ul>
-                </li>
-                    <li><a href="<?= BASE_URL ?>?act=orders">Đơn hàng</a></li>
-                </ul>
+                    </li>
+                        <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] === 'admin'): ?>
+                        <li><a href="<?= BASE_URL ?>?act=admin-dashboard">Quản trị</a></li>
+                        <?php endif; ?>
+                    </ul>
 
                 <!-- Search form -->
                 <form class="search-box" action="<?= BASE_URL ?>?act=search" method="GET">

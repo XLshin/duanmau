@@ -58,7 +58,7 @@ class UserController
     }
 
     // Xử lý đăng nhập
-   public function handleLogin()
+    public function handleLogin()
     {
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
@@ -66,7 +66,6 @@ class UserController
         $user = $this->userModel->findByEmail($email);
 
         if ($user && $password === $user['password']) {
-            // Lưu thông tin cần thiết vào session
             $_SESSION['user'] = [
                 'id' => $user['id'],
                 'name' => $user['name'],
@@ -74,7 +73,12 @@ class UserController
                 'role' => $user['role'],
             ];
 
-            header("Location: " . BASE_URL);
+            // 👉 Nếu là admin thì chuyển sang trang admin
+            if ($user['role'] === 'admin') {
+                header("Location: " . BASE_URL . "?act=admin-products");
+            } else {
+                header("Location: " . BASE_URL); // khách hàng bình thường
+            }
             exit;
         } else {
             $_SESSION['error'] = "Email hoặc mật khẩu không đúng!";

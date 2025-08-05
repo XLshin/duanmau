@@ -66,7 +66,7 @@ class ProductController
         $id = $_GET['id'];
         $product = new Product();
         $data = $product->deleteProduct($id);
-        header("Location: " . BASE_URL);
+        header("Location: " . BASE_URL . "?act=admin-products");
         exit();
 
     }
@@ -214,6 +214,12 @@ class ProductController
         exit();
     }
 
+    public function listProduct()
+{
+    $productModel = new Product();
+    $products = $productModel->getAllProduct(); // dùng đúng hàm bạn đã có
+    require_once './views/admin/products/list.php';
+}
 
 
 
