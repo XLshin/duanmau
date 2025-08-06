@@ -18,7 +18,7 @@ class CartController
             $size = $_POST['size'];
             $quantity = (int)$_POST['quantity'];
 
-            $productModel = new Product();
+            $productModel = new ProductModel();
             $product = $productModel->getOneProduct($productId);
             
 

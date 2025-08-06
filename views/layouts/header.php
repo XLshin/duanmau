@@ -290,9 +290,10 @@
                     <li><a href="<?= BASE_URL ?>?act=category&id=3">Giày tây</a></li>
                     <li><a href="<?= BASE_URL ?>?act=category&id=4">Sandal</a></li>
                     </ul>
+                    <li><a href="<?= BASE_URL ?>?act=orders">Đơn Hàng</a></li>
                     </li>
                         <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] === 'admin'): ?>
-                        <li><a href="<?= BASE_URL ?>?act=admin-dashboard">Quản trị</a></li>
+                        <li><a href="<?= BASE_URL ?>?act=admin-products">Quản trị</a></li>
                         <?php endif; ?>
                     </ul>
 

@@ -4,7 +4,7 @@ require_once './models/User.php';
 require_once './models/Product.php';
 
 $userModel = new User();
-$productModel = new Product();
+$productModel = new ProductModel();
 
 $totalUsers = $userModel->countUsers();
 $totalProducts = $productModel->countProducts();
@@ -130,7 +130,7 @@ $totalProducts = $productModel->countProducts();
       <p>Sản phẩm</p>
     </div>
     <div class="card">
-      <h3><?= $totalUsers ?></h3>
+      <h3><?= $totalUsers-1 ?></h3>
       <p>Người dùng</p>
     </div>
     <div class="card">

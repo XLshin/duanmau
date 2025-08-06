@@ -23,6 +23,10 @@
             <label for="email">Email:</label><br />
             <input type="email" name="email" id="email" value="<?= htmlspecialchars($user['email']) ?>" required style="width: 100%; padding: 8px;" readonly>
         </div>
+        <div style="margin-bottom: 15px;">
+            <label for="password">Mật Khẩu:</label><br />
+            <input type="text" name="password" id="password" value="<?= htmlspecialchars($user['password']) ?>" required style="width: 100%; padding: 8px;" >
+        </div>
 
         <div style="margin-bottom: 15px;">
             <label for="phone">Số điện thoại:</label><br />

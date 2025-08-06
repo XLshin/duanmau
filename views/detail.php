@@ -66,9 +66,6 @@
     gap: 14px;
 }
 
-.size-list li {
-    /* chuyển thành button-like */
-}
 
 .size-list button.size-item {
     border: 1px solid #ddd;

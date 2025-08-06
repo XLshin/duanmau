@@ -1,6 +1,6 @@
 <?php 
 
-class Product
+class ProductModel
 {
     public $conn;
     public function __construct()

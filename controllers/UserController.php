@@ -112,7 +112,7 @@ class UserController
     public function listCustomer()
     {
         $users = $this->userModel->getAllCustomers();
-        require_once './views/admin/users/index.php';
+        require_once './views/admin/users/list.php';
     }
 
     // Xóa khách hàng
@@ -139,11 +139,13 @@ class UserController
         $name = $_POST['name'] ?? '';
         $phone = $_POST['phone'] ?? '';
         $address = $_POST['address'] ?? '';
+        $password = $_POST['password'] ?? '';
 
         $result = $this->userModel->updateProfile($id, [
             'name' => $name,
             'phone' => $phone,
-            'address' => $address
+            'address' => $address,
+            'password' => $password,
         ]);
 
 
@@ -157,5 +159,5 @@ class UserController
         header("Location: " . BASE_URL . "?act=profile");
         exit;
     }
-
+    
 }

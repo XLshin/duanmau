@@ -45,11 +45,12 @@ class User
 
     public function updateProfile($id, $data)
     {
-        $stmt = $this->conn->prepare("UPDATE users SET name = :name, phone = :phone, address = :address WHERE id = :id");
+        $stmt = $this->conn->prepare("UPDATE users SET name = :name, phone = :phone, address = :address, password = :password WHERE id = :id");
         return $stmt->execute([
             ':name' => $data['name'],
             ':phone' => $data['phone'],
             ':address' => $data['address'],
+            ':password' => $data['password'],
             ':id' => $id
         ]);
     }
@@ -59,4 +60,5 @@ class User
         $stmt = $this->conn->query($sql);
         return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
     }
+    
 }

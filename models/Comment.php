@@ -40,5 +40,19 @@ class Comment
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute(['id' => $comment_id]);
     }
+    public function getAllComments()
+    {
+        $sql = "SELECT c.*, 
+                    u.name AS user_name, 
+                    p.name AS product_name
+                FROM comments c
+                JOIN users u ON c.user_id = u.id
+                JOIN products p ON c.product_id = p.id
+                ORDER BY c.created_at DESC";
+
+        $stmt = $this->conn->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
 
 }

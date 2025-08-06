@@ -25,5 +25,36 @@ class Category
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+        // Thêm danh mục mới
+    public function createCategory($name, $description)
+    {
+        $sql = "INSERT INTO categories (name, description) VALUES (:name, :description)";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([
+            'name' => $name,
+            'description' => $description
+        ]);
+    }
+
+    // Cập nhật danh mục
+    public function updateCategory($id, $name, $description)
+    {
+        $sql = "UPDATE categories SET name = :name, description = :description WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([
+            'id' => $id,
+            'name' => $name,
+            'description' => $description
+        ]);
+    }
+
+    // Xóa danh mục
+    public function deleteCategory($id)
+    {
+        $sql = "DELETE FROM categories WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute(['id' => $id]);
+    }
 }
 
+    
