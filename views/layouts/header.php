@@ -1,4 +1,7 @@
-<?php if (session_status() === PHP_SESSION_NONE) session_start(); ?>
+<?php if (session_status() === PHP_SESSION_NONE) session_start(); 
+        $categoryModel = new Category();
+        $categories = $categoryModel->getAllCategory();
+?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -282,16 +285,18 @@
             <div class="nav-center">
                 <ul>
                     <li><a href="<?= BASE_URL ?>">Trang chủ</a></li>
-                    <li class="dropdown">
-                    <a href="#" class="dropbtn">Danh mục</a>
-                    <ul class="dropdown-content">
-                    <li><a href="<?= BASE_URL ?>?act=category&id=1">Giày sneaker</a></li>
-                    <li><a href="<?= BASE_URL ?>?act=category&id=2">Giày thể thao</a></li>
-                    <li><a href="<?= BASE_URL ?>?act=category&id=3">Giày tây</a></li>
-                    <li><a href="<?= BASE_URL ?>?act=category&id=4">Sandal</a></li>
-                    </ul>
+<li class="dropdown">
+    <a href="#" class="dropbtn">Danh mục</a>
+    <ul class="dropdown-content">
+        <?php foreach ($categories as $cat): ?>
+            <li><a href="<?= BASE_URL ?>?act=category&id=<?= $cat['id'] ?>">
+                <?= htmlspecialchars($cat['name']) ?>
+            </a></li>
+        <?php endforeach; ?>
+    </ul>
+</li>
+
                     <li><a href="<?= BASE_URL ?>?act=orders">Đơn Hàng</a></li>
-                    </li>
                         <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] === 'admin'): ?>
                         <li><a href="<?= BASE_URL ?>?act=admin-products">Quản trị</a></li>
                         <?php endif; ?>

@@ -21,7 +21,7 @@ class ProductController
         $data = $productModel->getOneProduct($id);
         $comments = $commentModel->getCommentsByProductId($id);
 
-        require_once './views/detail.php';
+        require_once './views/products/detail.php';
     }
 
     public function addComment()
