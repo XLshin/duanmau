@@ -1,6 +1,15 @@
 <?php require_once './views/layouts/header.php'; ?>
+        <div class="banner"><img src="./views/banner/7.png" alt=""></div>
 
 <style>
+
+    .banner img {
+    max-width: 100%;
+    width: 1472px;
+    height: 628px;
+    display: block;
+    margin: 0 auto;
+}
 .container {
     max-width: 1200px;
     margin: 40px auto;

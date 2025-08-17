@@ -37,7 +37,7 @@
     </table>
     <div style="text-align: center; margin-top: 20px;">
         <?php if (isset($_SESSION['user'])): ?>
-            <a href="<?= BASE_URL ?>?act=checkout" class="btn-cart">🧾 Đặt hàng</a>
+            <a href="<?= BASE_URL ?>" class="btn-cart">🧾 Đặt hàng</a>
         <?php else: ?>
             <a href="<?= BASE_URL ?>?act=login" class="btn-cart">🔒 Đăng nhập để đặt hàng</a>
         <?php endif; ?>

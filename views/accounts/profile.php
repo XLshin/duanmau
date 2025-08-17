@@ -44,4 +44,4 @@
     </form>
 </div>
 
-<?php require_once './views/layouts/footer.php'; ?>
+

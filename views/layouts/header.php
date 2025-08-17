@@ -19,7 +19,7 @@
         }
 
         header {
-            background-color: #111;
+            background-color: #171719;
             color: white;
             padding: 12px 30px;
         }
@@ -254,10 +254,11 @@
     text-decoration: none;
     transition: background-color 0.2s ease;
 }
-
 .dropdown-content li a:hover {
     background-color: #444;
 }
+
+
 
     </style>
     <script>
@@ -276,33 +277,31 @@
 <body>
     <header>
         <nav>
-            <!-- Left -->
+            <!-- logo -->
             <div class="nav-left">
                 <div class="logo">FakeSneaker</div>
             </div>
-
-            <!-- Center -->
+            <!-- menu -->
             <div class="nav-center">
                 <ul>
                     <li><a href="<?= BASE_URL ?>">Trang chủ</a></li>
-<li class="dropdown">
-    <a href="#" class="dropbtn">Danh mục</a>
-    <ul class="dropdown-content">
-        <?php foreach ($categories as $cat): ?>
-            <li><a href="<?= BASE_URL ?>?act=category&id=<?= $cat['id'] ?>">
-                <?= htmlspecialchars($cat['name']) ?>
-            </a></li>
-        <?php endforeach; ?>
-    </ul>
-</li>
-
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Danh mục</a>
+                        <ul class="dropdown-content">
+                            <?php foreach ($categories as $cat): ?>
+                                <li><a href="<?= BASE_URL ?>?act=category&id=<?= $cat['id'] ?>">
+                                    <?= htmlspecialchars($cat['name']) ?>
+                                </a></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </li>
                     <li><a href="<?= BASE_URL ?>?act=orders">Đơn Hàng</a></li>
                         <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] === 'admin'): ?>
                         <li><a href="<?= BASE_URL ?>?act=admin-products">Quản trị</a></li>
                         <?php endif; ?>
                     </ul>
 
-                <!-- Search form -->
+                <!-- hàm search -->
                 <form class="search-box" action="<?= BASE_URL ?>?act=search" method="GET">
                     <input type="hidden" name="act" value="search">
                     <input type="text" name="keyword" placeholder="Tìm sản phẩm...">
@@ -310,7 +309,7 @@
                 </form>
             </div>
 
-            <!-- Right -->
+           
             <div class="nav-right">
                 <a href="<?= BASE_URL ?>?act=cart" class="btn-cart">🛒 Giỏ hàng</a>
 
@@ -326,7 +325,7 @@
                             <a href="<?= BASE_URL ?>?act=logout">Đăng xuất</a>
                         </div>
                     </div>
-                <?php endif; ?>
+                <?php endif; ?>                
             </div>
         </nav>
     </header>

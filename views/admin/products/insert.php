@@ -94,4 +94,11 @@ form button:hover {
         <input type="file" name="image" id="">
     </div>
     <button>Thêm mới</button>
+    <?php if (isset($_SESSION['error'])): ?>
+    <div style="color: red; margin-bottom: 10px;">
+        <?= htmlspecialchars($_SESSION['error']) ?>
+    </div>
+    <?php unset($_SESSION['error']); ?>
+<?php endif; ?>
+
 </form>

@@ -60,5 +60,11 @@ class User
         $stmt = $this->conn->query($sql);
         return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
     }
+    public function updateStatus($id, $status) {
+    $sql = "UPDATE users SET status = ? WHERE id = ?";
+    $stmt = $this->conn->prepare($sql);
+    return $stmt->execute([$status, $id]);
+}
+
     
 }

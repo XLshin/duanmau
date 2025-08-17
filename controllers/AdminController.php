@@ -1,6 +1,13 @@
 <?php
 class AdminController
 {
+        protected $userModel;
+
+    public function __construct()
+    {
+        $this->userModel = new User(); // khởi tạo model User
+    }
+
     // ----------- SẢN PHẨM -----------
 
     public function listProduct()
@@ -24,6 +31,12 @@ class AdminController
         $price = $_POST['price'] ?? null;
         $category_id = $_POST['category_id'] ?? null;
         $brand = $_POST['brand'] ?? null;
+
+            if ($name === '' || $price <= 0 || $category_id <= 0 || $brand === '') {
+            $_SESSION['error'] = "Vui lòng nhập đầy đủ thông tin hợp lệ.";
+            header("Location: " . BASE_URL . "?act=insertProduct");
+            exit();
+        }
 
         $image = null;
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
@@ -77,6 +90,12 @@ class AdminController
         $category_id = $_POST['category_id'] ?? null;
         $brand = $_POST['brand'] ?? null;
 
+            if ($name === '' || $price <= 0 || $category_id <= 0 || $brand === '') {
+            $_SESSION['error'] = "Vui lòng nhập đầy đủ thông tin hợp lệ.";
+            header("Location: " . BASE_URL . "?act=updateProduct&id=$id");
+            exit();
+        }
+
         $product = new ProductModel();
         $oldData = $product->getOneProduct($id);
         $image = $oldData['image'] ?? null;
@@ -113,4 +132,22 @@ class AdminController
         header("Location: " . BASE_URL . "?act=admin-comments");
         exit();
     }
+        // Khóa tài khoản
+    public function lockUser()
+    {
+        $id = $_GET['id'] ?? 0;
+        $this->userModel->updateStatus($id, 0); // 0 = khóa
+        header("Location: " . BASE_URL . "?act=admin-users");
+        exit;
+    }
+
+    // Mở khóa tài khoản
+    public function unlockUser()
+    {
+        $id = $_GET['id'] ?? 0;
+        $this->userModel->updateStatus($id, 1); // 1 = hoạt động
+        header("Location: " . BASE_URL . "?act=admin-users");
+        exit;
+    }
+
 }

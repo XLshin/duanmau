@@ -5,6 +5,8 @@
         margin-bottom: 20px;
         color: #2c3e50;
         text-align: center;
+        font-size: 24px;
+        font-weight: bold;
     }
 
     table {
@@ -23,25 +25,54 @@
     }
 
     table th {
-        background-color: #f0f0f0;
+        background-color: #f8f9fa;
         font-weight: bold;
         color: #333;
+        text-transform: uppercase;
+        font-size: 14px;
     }
 
     table tr:nth-child(even) {
         background-color: #fafafa;
     }
 
-    .btn-delete {
-        background-color: #e74c3c;
-        color: white;
+    /* Badge trạng thái */
+    .status-badge {
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        display: inline-block;
+    }
+    .status-active {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+    .status-locked {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+    /* Nút hành động */
+    .btn-action {
         padding: 6px 12px;
         text-decoration: none;
         border-radius: 4px;
         font-size: 13px;
+        font-weight: 500;
+        transition: all 0.2s ease-in-out;
     }
-
-    .btn-delete:hover {
+    .btn-lock {
+        background-color: #e74c3c;
+        color: white;
+    }
+    .btn-unlock {
+        background-color: #28a745;
+        color: white;
+    }
+    .btn-action:hover {
         opacity: 0.9;
     }
 </style>
@@ -56,6 +87,7 @@
             <th>Email</th>
             <th>Số điện thoại</th>
             <th>Địa chỉ</th>
+            <th>Trạng thái</th>
             <th>Hành động</th>
         </tr>
     </thead>
@@ -68,9 +100,18 @@
                 <td><?= htmlspecialchars($user['phone']) ?></td>
                 <td><?= htmlspecialchars($user['address']) ?></td>
                 <td>
-                    <a href="<?= BASE_URL ?>?act=admin-user-delete&id=<?= $user['id'] ?>"
-                       class="btn-delete"
-                       onclick="return confirm('Bạn có chắc muốn xóa người dùng này?')">Xóa</a>
+                    <?php if ($user['status'] == 1): ?>
+                        <span class="status-badge status-active">Hoạt động</span>
+                    <?php else: ?>
+                        <span class="status-badge status-locked">Đã khóa</span>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php if ($user['status'] == 1): ?>
+                        <a href="?act=admin-user-lock&id=<?= $user['id'] ?>" class="btn-action btn-lock">Khóa</a>
+                    <?php else: ?>
+                        <a href="?act=admin-user-unlock&id=<?= $user['id'] ?>" class="btn-action btn-unlock">Mở khóa</a>
+                    <?php endif; ?>
                 </td>
             </tr>
         <?php endforeach; ?>

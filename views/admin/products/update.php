@@ -107,4 +107,11 @@ form button:hover {
     <div>
         <button type="submit">Cập nhật</button>
     </div>
+    <?php if (isset($_SESSION['error'])): ?>
+    <div style="color: red; margin-bottom: 10px;">
+        <?= htmlspecialchars($_SESSION['error']) ?>
+    </div>
+    <?php unset($_SESSION['error']); ?>
+<?php endif; ?>
+
 </form>

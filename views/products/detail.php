@@ -1,6 +1,10 @@
 <?php require_once './views/layouts/header.php'; ?>
 
+
+
 <style>
+
+
 .detail-container {
     max-width: 960px;
     margin: 40px auto;

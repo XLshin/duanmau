@@ -64,6 +64,14 @@ class UserController
         $password = $_POST['password'] ?? '';
 
         $user = $this->userModel->findByEmail($email);
+            if ($user) {
+        // ✅ Kiểm tra tài khoản có bị khóa không
+        if (isset($user['status']) && $user['status'] == 0) {
+            $_SESSION['error'] = "Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị viên!";
+            header("Location: " . BASE_URL . "?act=login");
+            exit;
+        }
+    }
 
         if ($user && $password === $user['password']) {
             $_SESSION['user'] = [

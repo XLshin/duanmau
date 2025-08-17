@@ -1,6 +1,14 @@
 <?php require_once './views/layouts/header.php'; ?>
-
+<div class="banner"><img src="./views/banner/7.png" alt=""></div>
 <style>
+
+.banner img {
+max-width: 100%;
+width: 1472px;
+height: 628px;
+display: block;
+margin: 0 auto;
+}
 .container {
     max-width: 1200px;
     margin: 40px auto;
@@ -91,15 +99,10 @@
                         <h3><?= htmlspecialchars($product['name']) ?></h3>
                         <p>
                             <?= htmlspecialchars($product['brand'] ?? '') ?>
-                            <?php 
-                            // Nếu bạn muốn hiển thị tên danh mục bên cạnh brand, 
-                            // thì phải truy vấn thêm hoặc join trong model rồi truyền sang
-                            ?>
                         </p>
                         <div class="product-price"><?= number_format($product['price'], 0, ',', '.') ?>₫</div>
                         <div class="product-actions">
                             <a href="<?= BASE_URL ?>?act=detail&id=<?= $product['id'] ?>">Xem chi tiết</a>
-                            <!-- Có thể thêm nút thêm vào giỏ hàng ở đây nếu cần -->
                         </div>
                     </div>
                 </div>
