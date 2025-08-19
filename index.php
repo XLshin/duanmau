@@ -56,8 +56,7 @@
         'cart'            => (new CartController())->index(),
         'add-cart'        => (new CartController())->add(),
         'remove-cart'     => (new CartController())->remove(),
-        'orders'          => print("không có đâu"), // chưa xử lý
-
+        
         // --- ADMIN  ---
         // Quản lý sản phẩm
         'admin-products'       => (new AdminController())->listProduct(),
@@ -73,7 +72,6 @@
 
         // Quản lý người dùng
         'admin-users'          => (new UserController())->listCustomer(),
-        'admin-user-delete'    => (new UserController())->deleteCustomer(),
         'admin-user-lock'      => (new AdminController())->lockUser(),
         'admin-user-unlock'    => (new AdminController())->unlockUser(),
 

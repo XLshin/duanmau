@@ -295,7 +295,7 @@
                             <?php endforeach; ?>
                         </ul>
                     </li>
-                    <li><a href="<?= BASE_URL ?>?act=orders">Đơn Hàng</a></li>
+                    <li><a href="<?= BASE_URL ?>">Đơn Hàng</a></li>
                         <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] === 'admin'): ?>
                         <li><a href="<?= BASE_URL ?>?act=admin-products">Quản trị</a></li>
                         <?php endif; ?>

@@ -27,8 +27,8 @@ class ProductModel
         $stmt->execute();
         $product = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Lấy danh sách size + tồn kho nếu có
-        $sql_size = "SELECT size, quantity FROM inventory WHERE product_id = :id ORDER BY size ASC";
+        // Lấy danh sách size nếu có
+        $sql_size = "SELECT size FROM inventory WHERE product_id = :id ORDER BY size ASC";
         $stmt_size = $this->conn->prepare($sql_size);
         $stmt_size->bindParam(':id', $id);
         $stmt_size->execute();
